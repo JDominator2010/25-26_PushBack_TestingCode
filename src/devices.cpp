@@ -7,12 +7,12 @@ using namespace pros;
 
 Controller controller(E_CONTROLLER_MASTER);
 // -- INTAKE MOTORS -- //
-Motor Low(-10, v5::MotorGears::blue, pros::v5::MotorEncoderUnits::deg);
-Motor Mid(9, v5::MotorGears::blue, pros::v5::MotorEncoderUnits::deg);
-Motor High(-8, v5::MotorGears::blue, pros::v5::MotorEncoderUnits::deg);
+Motor Low(-13, v5::MotorGears::blue, pros::v5::MotorEncoderUnits::deg);
+Motor Mid(12, v5::MotorGears::blue, pros::v5::MotorEncoderUnits::deg);
+Motor High(-11, v5::MotorGears::blue, pros::v5::MotorEncoderUnits::deg);
 
 // -- DRIVE MOTORS -- //
-Motor FL(-10, v5::MotorGears::blue, pros::v5::MotorEncoderUnits::deg);
+Motor FL(-16, v5::MotorGears::blue, pros::v5::MotorEncoderUnits::deg);
 Motor FR(9, v5::MotorGears::blue, pros::v5::MotorEncoderUnits::deg);
-Motor RR(-8, v5::MotorGears::blue, pros::v5::MotorEncoderUnits::deg);
-Motor RL(-8, v5::MotorGears::blue, pros::v5::MotorEncoderUnits::deg);
+Motor RR(-20, v5::MotorGears::blue, pros::v5::MotorEncoderUnits::deg);
+Motor RL(-19, v5::MotorGears::blue, pros::v5::MotorEncoderUnits::deg);19

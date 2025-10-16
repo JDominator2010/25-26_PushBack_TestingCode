@@ -74,7 +74,8 @@ void opcontrol() {
 		RR.move(strafe + forward - turn);
 
 
-
+		// -- INTAKE CONTROLS -- //
+		
 		// INTAKE R1
 		if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)){
 			Low.move(127);
