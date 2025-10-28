@@ -12,7 +12,7 @@ Motor Mid(12, v5::MotorGears::blue, pros::v5::MotorEncoderUnits::deg);
 Motor High(-11, v5::MotorGears::blue, pros::v5::MotorEncoderUnits::deg);
 
 // -- DRIVE MOTORS -- //
-Motor FL(-16, v5::MotorGears::blue, pros::v5::MotorEncoderUnits::deg);
-Motor FR(9, v5::MotorGears::blue, pros::v5::MotorEncoderUnits::deg);
-Motor RR(-20, v5::MotorGears::blue, pros::v5::MotorEncoderUnits::deg);
-Motor RL(-19, v5::MotorGears::blue, pros::v5::MotorEncoderUnits::deg);
+Motor FL(-16, v5::MotorGears::green, pros::v5::MotorEncoderUnits::deg);
+Motor FR(17, v5::MotorGears::green, pros::v5::MotorEncoderUnits::deg);
+Motor RR(-20, v5::MotorGears::green, pros::v5::MotorEncoderUnits::deg);
+Motor RL(-19, v5::MotorGears::green, pros::v5::MotorEncoderUnits::deg);
