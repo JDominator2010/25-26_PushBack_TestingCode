@@ -25,6 +25,8 @@ void autonomous() {}
 
 
 void opcontrol() {
+	// Implement rising edge button detection
+	bool prevA = false; 
 	while (true) {
 
 		// -- DRIVE CODE -- //
@@ -40,9 +42,11 @@ void opcontrol() {
 		// -- MATCH LOADER CONTROLS -- //
 
 		// TOGGLE PISTON (A)
-		if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_A)){
+		bool curA = controller.get_digital(pros::E_CONTROLLER_DIGITAL_A);
+		if(curA && !prevA){
 			matchLoad.toggle();
 		}
+		prevA = curA;
 
 		// -- INTAKE CONTROLS -- //
 		
