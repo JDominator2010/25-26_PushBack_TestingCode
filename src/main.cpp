@@ -37,26 +37,32 @@ void opcontrol() {
 		RL.move(strafe - forward - turn);
 		RR.move(strafe + forward - turn);
 
+		// -- MATCH LOADER CONTROLS -- //
+
+		// TOGGLE PISTON (A)
+		if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_A)){
+			matchLoad.toggle();
+		}
 
 		// -- INTAKE CONTROLS -- //
 		
-		// INTAKE R1
+		// INTAKE (R1)
 		if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)){
 			Low.move(127);
 			Mid.move(-127);
 		}
-		// Low GOAL R2
+		// LOW GOAL (R2)
 		else if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2)){
 			Low.move(-127);
 			Mid.move(127);
 		}
-		// Mid GOAL L2
+		// MID GOAL (L2)
 		else if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_L2)){
 			Low.move(127);
 			Mid.move(127);
 			High.move(-127);
 		}
-		// High GOAL L1
+		// HIGH GOAL (L1)
 		else if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){
 			Low.move(127);
 			Mid.move(127);
