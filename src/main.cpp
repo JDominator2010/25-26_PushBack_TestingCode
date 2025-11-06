@@ -46,7 +46,7 @@ void opcontrol() {
 		if(curA && !prevA){
 			matchLoad.toggle();
 		}
-		prevA = curA;
+		prevA = curA; 
 
 		// -- INTAKE CONTROLS -- //
 		
@@ -62,9 +62,9 @@ void opcontrol() {
 		}
 		// MID GOAL (L2)
 		else if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_L2)){
-			Low.move(127);
+			Low.move(85);
 			Mid.move(127);
-			High.move(-127);
+			High.move(-85);
 		}
 		// HIGH GOAL (L1)
 		else if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){
