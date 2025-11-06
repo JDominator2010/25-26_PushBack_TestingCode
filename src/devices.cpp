@@ -1,4 +1,5 @@
 #include "main.h"
+#include "pros/abstract_motor.hpp"
 #include "pros/adi.hpp"
 #include "pros/imu.hpp"
 #include "pros/misc.h"
@@ -23,6 +24,8 @@ Motor FR(8, v5::MotorGears::green, pros::v5::MotorEncoderUnits::deg);
 Motor RR(-9, v5::MotorGears::green, pros::v5::MotorEncoderUnits::deg);
 Motor RL(-10, v5::MotorGears::green, pros::v5::MotorEncoderUnits::deg);
 
+// --- ETC MOTORS -- //
+Motor Disrupter(3, pros::v5::MotorGears::red, pros::v5::MotorEncoderUnits::deg);
 
 // -- ADI PORTS -- //
 adi::Pneumatics matchLoad('A', false);

@@ -24,6 +24,7 @@ void competition_initialize() {}
 void autonomous() {}
 
 
+
 void opcontrol() {
 	// Implement rising edge button detection
 	bool prevA = false; 
@@ -65,7 +66,7 @@ void opcontrol() {
 			Low.move(85);
 			Mid.move(127);
 			High.move(-85);
-		}
+		} 
 		// HIGH GOAL (L1)
 		else if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){
 			Low.move(127);

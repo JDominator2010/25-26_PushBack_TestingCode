@@ -20,8 +20,8 @@ extern Motor FR;
 extern Motor RR;
 extern Motor RL;
 
+// --- ETC MOTORS -- //
+extern Motor Disrupter;
 
 // -- ADI PORTS -- //
 extern adi::Pneumatics matchLoad;
-
-
