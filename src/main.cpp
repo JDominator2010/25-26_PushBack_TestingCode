@@ -2,8 +2,9 @@
 #include "devices.h"
 #include "pros/motors.h"
 #include "pros/rtos.hpp"
-#include <atomic>
+#include <atomic> // IWYU pragma: keep
 #include <cstdint>
+
 
 void initialize() {
 	pros::lcd::initialize();
