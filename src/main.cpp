@@ -4,6 +4,7 @@
 #include "pros/rtos.hpp"
 #include <atomic> // IWYU pragma: keep
 #include <cstdint>
+#include "lemlib/api.hpp" // IWYU pragma: keep
 
 
 void initialize() {
