@@ -44,10 +44,10 @@ lemlib::TrackingWheel horizontalTracker(&horizontalRotation, lemlib::Omniwheel::
 lemlib::TrackingWheel verticalTracker(&verticalRotation, lemlib::Omniwheel::NEW_275, -5.75);
 
 lemlib::OdomSensors sensors(&horizontalTracker, // vertical tracking wheel 1, set to null
-                            nullptr, // vertical tracking wheel 2, set to nullptr as we are using IMEs
+                            nullptr,
                             &verticalTracker, // horizontal tracking wheel 1
                             nullptr, // horizontal tracking wheel 2, set to nullptr as we don't have a second one
-                            &inertial // inertial sensor
+                            &inertial 
 );
 
 lemlib::ControllerSettings lateral_controller(10, // proportional gain (kP)
@@ -73,13 +73,13 @@ lemlib::ControllerSettings angular_controller(2, // proportional gain (kP)
 );
 
 lemlib::Chassis chassis(drivetrain, // drivetrain settings
-                        lateral_controller, // lateral PID settings
-                        angular_controller, // angular PID settings
-                        sensors // odometry sensors
+                        lateral_controller, 
+                        angular_controller, 
+                        sensors
 );
 
 // --- ETC MOTORS -- //
-Motor Disrupter(3, pros::v5::MotorGears::red, pros::v5::MotorEncoderUnits::deg);
+Motor Disrupter(3, pros::v5::MotorGears::green, pros::v5::MotorEncoderUnits::deg);
 
 // -- ADI PORTS -- //
 adi::Pneumatics matchLoad('A', false);

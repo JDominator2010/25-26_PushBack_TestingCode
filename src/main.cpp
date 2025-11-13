@@ -25,7 +25,7 @@ void opcontrol() {
 	uint32_t lastPulseTime = 0;
 	const uint32_t pulseInterval = 300; // ms between pulses
 	const double leftPos = 15.0;
-	const double rightPos = -900.0;
+	const double rightPos = -200.0;
 	const double parkTolerance = 8.0;
 	const int pulseVel = 200; 
 
