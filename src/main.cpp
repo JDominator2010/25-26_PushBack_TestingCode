@@ -1,9 +1,14 @@
 #include "main.h"
 #include "devices.h"
+#include "liblvgl/llemu.hpp"
+#include "pros/misc.h"
 #include "pros/motors.h"
+#include "pros/rtos.h"
 #include "pros/rtos.hpp"
 #include <atomic> // IWYU pragma: keep
 #include <cstdint>
+#include <cstdio>
+#include <string>
 #include "lemlib/api.hpp" // IWYU pragma: keep
 
 
@@ -11,13 +16,53 @@ void initialize() {
 	pros::lcd::initialize();
 	pros::lcd::set_text(1, "Hello PROS User!");
 	Disrupter.tare_position();
+	chassis.calibrate(true);
+	imu.tare();
+	while (imu.is_calibrating()){
+		pros::delay(20);
+	}
+    pros::Task screen_task([=]() {
+        while (true) {
+            // print robot location to the brain screen
+            pros::lcd::print(0, "X: %f", chassis.getPose().x); // x
+            pros::lcd::print(1, "Y: %f", chassis.getPose().y); // y
+            pros::lcd::print(2, "Theta: %f", chassis.getPose().theta); // heading
+            // delay to save resources
+            pros::delay(20);
+        }
+    });
 }
 
 void disabled() {}
 
 void competition_initialize() {}
 
-void autonomous() {}
+void autonomous() {
+	chassis.setPose(0,0,0);
+    // while (true) { // infinite loop
+	// 	pros::lcd::print(1, "Horizontal Rotation Sensor: %f", horizontalTracker.getDistanceTraveled());
+	// 	pros::lcd::print(2, "Vertical Rotation Sensor: %f", verticalTracker.getDistanceTraveled());
+	// 	printf("Horizontal Rotation Sensor: %f, Vertical Rotation Sensor: %f\n",
+	// 		   horizontalTracker.getDistanceTraveled(), verticalTracker.getDistanceTraveled());
+	// 	printf("\033[2J\033[H"); // ANSI clear screen and move cursor home
+	// 	fflush(stdout);
+    //     pros::delay(10); // delay to save resources. DO NOT REMOVE
+    // }
+
+	pros::lcd::clear();
+	printf("Autonomous Start\n");
+	std::string msg = "X: " + std::to_string(chassis.getPose().x) + " Y: " + std::to_string(chassis.getPose().y) + " Theta: " + std::to_string(chassis.getPose().theta);
+	printf("%s\n", msg.c_str());
+	pros::lcd::set_text(1, "X: " + std::to_string(chassis.getPose().x) + " Y: " + std::to_string(chassis.getPose().y) + " Theta: " + std::to_string(chassis.getPose().theta));
+	printf("Moving to point...\n");
+
+	chassis.moveToPoint(5, 0, 4000);
+
+	printf("done with move\n");
+	pros::lcd::set_text(2, msg.c_str());
+	printf("%s\n", msg.c_str());
+	printf("Autonomous End\n");
+}
 
 void opcontrol() {
 	bool prevA = false; 
@@ -27,7 +72,7 @@ void opcontrol() {
 	const double leftPos = 15.0;
 	const double rightPos = -200.0;
 	const double parkTolerance = 8.0;
-	const int pulseVel = 200; 
+	const int pulseVel = 150; 
 
 	while (true) {
 		// -- DRIVE CODE -- //

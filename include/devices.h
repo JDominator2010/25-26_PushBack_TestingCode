@@ -12,7 +12,7 @@ using namespace pros;
 extern Controller controller;
 
 // -- SENSORS -- //
-extern Imu inertial;
+extern Imu imu;
 extern Rotation verticalRotation;
 extern Rotation horizontalRotation;
 
