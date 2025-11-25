@@ -31,7 +31,7 @@ Motor RL(-10, v5::MotorGears::green, pros::v5::MotorEncoderUnits::deg);
 
 // -- LEMLIB DRIVETRAIN SETUP -- //
 MotorGroup leftMotorGroup({7, 10}, pros::MotorGears::green);
-MotorGroup rightMotorGroup({8, 9}, pros::MotorGears::green);
+MotorGroup rightMotorGroup({-8, -9}, pros::MotorGears::green);
 
 lemlib::Drivetrain drivetrain(&leftMotorGroup, // left motor group
                               &rightMotorGroup, // right motor group
@@ -62,9 +62,9 @@ lemlib::ControllerSettings lateral_controller(10, // proportional gain (kP)
                                               20 // maximum acceleration (slew)
 );
 
-lemlib::ControllerSettings angular_controller(2, // proportional gain (kP)
+lemlib::ControllerSettings angular_controller(7, // proportional gain (kP)
                                               0, // integral gain (kI)
-                                              10, // derivative gain (kD)
+                                              30, // derivative gain (kD)
                                               3, // anti windup
                                               1, // small error range, in inches
                                               100, // small error range timeout, in milliseconds

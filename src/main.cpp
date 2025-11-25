@@ -21,16 +21,16 @@ void initialize() {
 	while (imu.is_calibrating()){
 		pros::delay(20);
 	}
-    pros::Task screen_task([=]() {
-        while (true) {
-            // print robot location to the brain screen
-            pros::lcd::print(0, "X: %f", chassis.getPose().x); // x
-            pros::lcd::print(1, "Y: %f", chassis.getPose().y); // y
-            pros::lcd::print(2, "Theta: %f", chassis.getPose().theta); // heading
-            // delay to save resources
-            pros::delay(20);
-        }
-    });
+    // pros::Task screen_task([=]() {
+    //     while (true) {
+    //         // print robot location to the brain screen
+    //         pros::lcd::print(0, "X: %f", chassis.getPose().x); // x
+    //         pros::lcd::print(1, "Y: %f", chassis.getPose().y); // y
+    //         pros::lcd::print(2, "Theta: %f", chassis.getPose().theta); // heading
+    //         // delay to save resources
+    //         pros::delay(20);
+    //     }
+    // });
 }
 
 void disabled() {}
@@ -56,7 +56,9 @@ void autonomous() {
 	pros::lcd::set_text(1, "X: " + std::to_string(chassis.getPose().x) + " Y: " + std::to_string(chassis.getPose().y) + " Theta: " + std::to_string(chassis.getPose().theta));
 	printf("Moving to point...\n");
 
-	chassis.moveToPoint(5, 0, 4000);
+	chassis.moveToPoint(0, 24, 4000);
+	// chassis.turnToHeading(90, 100000);
+
 
 	printf("done with move\n");
 	pros::lcd::set_text(2, msg.c_str());
@@ -79,7 +81,6 @@ void opcontrol() {
 		std::int32_t forward = controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
 		std::int32_t strafe = controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X);
 		std::int32_t turn = controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
-
 		FL.move(-strafe - forward +-turn);
 		FR.move(+strafe - forward + turn);
 		RL.move(strafe - forward - turn);
