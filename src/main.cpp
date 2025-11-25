@@ -8,6 +8,7 @@
 #include <atomic> // IWYU pragma: keep
 #include <cstdint>
 #include <cstdio>
+#include <ctime>
 #include <string>
 #include "lemlib/api.hpp" // IWYU pragma: keep
 
@@ -56,7 +57,8 @@ void autonomous() {
 	pros::lcd::set_text(1, "X: " + std::to_string(chassis.getPose().x) + " Y: " + std::to_string(chassis.getPose().y) + " Theta: " + std::to_string(chassis.getPose().theta));
 	printf("Moving to point...\n");
 
-	chassis.moveToPoint(0, 24, 4000);
+	chassis.moveToPoint(0, 48, 4000, {}, false);
+	// chassis.moveToPose(0, 48, 0, 4000);
 	// chassis.turnToHeading(90, 100000);
 
 
