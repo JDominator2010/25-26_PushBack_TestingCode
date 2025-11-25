@@ -9,7 +9,6 @@
 #include "lemlib-tarball/api.hpp" // IWYU pragma: keep
 
 
-
 using namespace pros;
 extern Controller controller;
 
@@ -48,6 +47,7 @@ extern lemlib::Chassis chassis;
 // -- LEMLIB TARBALL / PURE PURSUIT -- //
 
 extern lemlib_tarball::Decoder blueDecoder;
+extern lemlib_tarball::Decoder testingDecoder;
 
 // --- ETC MOTORS -- //
 extern Motor Disrupter;
