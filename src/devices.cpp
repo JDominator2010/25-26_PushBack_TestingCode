@@ -8,6 +8,7 @@
 #include "lemlib/api.hpp" // IWYU pragma: keep
 #include "pros/motor_group.hpp"
 #include "pros/rotation.hpp"
+#include "lemlib-tarball/api.hpp" // IWYU pragma: keep
 
 
 using namespace pros;
@@ -79,6 +80,11 @@ lemlib::Chassis chassis(drivetrain, // drivetrain settings
                         angular_controller, 
                         sensors
 );
+
+// -- LEMLIB TARBALL / PURE PURSUIT -- //
+
+ASSET(bluepath_txt);
+lemlib_tarball::Decoder blueDecoder(bluepath_txt);
 
 // --- ETC MOTORS -- //
 Motor Disrupter(3, pros::v5::MotorGears::green, pros::v5::MotorEncoderUnits::deg);

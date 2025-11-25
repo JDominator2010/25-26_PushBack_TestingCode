@@ -6,6 +6,8 @@
 #include "lemlib/api.hpp" // IWYU pragma: keep
 #include "pros/motor_group.hpp"
 #include "pros/rotation.hpp"
+#include "lemlib-tarball/api.hpp" // IWYU pragma: keep
+
 
 
 using namespace pros;
@@ -42,6 +44,10 @@ extern lemlib::ControllerSettings lateral_controller;
 extern lemlib::ControllerSettings angular_controller;
 
 extern lemlib::Chassis chassis;
+
+// -- LEMLIB TARBALL / PURE PURSUIT -- //
+
+extern lemlib_tarball::Decoder blueDecoder;
 
 // --- ETC MOTORS -- //
 extern Motor Disrupter;

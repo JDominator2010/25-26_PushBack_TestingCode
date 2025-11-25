@@ -11,6 +11,7 @@
 #include <ctime>
 #include <string>
 #include "lemlib/api.hpp" // IWYU pragma: keep
+#include "lemlib-tarball/api.hpp" // IWYU pragma: keep
 
 void initialize() {
 	pros::lcd::initialize();
@@ -38,7 +39,51 @@ void disabled() {}
 void competition_initialize() {}
 
 void autonomous() {
-	chassis.setPose(0,0,0);
+	bool pulseDir = false;  // false = left, true = right
+	uint32_t lastPulseTime = 0;
+	const uint32_t pulseInterval = 300; // ms between pulses
+	const double leftPos = 15.0;
+	const double rightPos = -200.0;
+	const double parkTolerance = 8.0;
+	const int pulseVel = 150; 
+	chassis.setPose(61.7,-19,260);
+	
+	Low.move(127);
+	Mid.move(-127);
+	chassis.follow(blueDecoder["ToBlocks1"], 10, 50000, true, false);
+	Low.brake();
+	Mid.brake();
+
+	chassis.setPose(23.5, -25, 130);
+	chassis.follow(blueDecoder["ToGoal1"], 10, 50000, true, false);
+	Low.move(127);
+	Mid.move(127);
+	High.move(127);
+	
+	long start = millis();
+	long end = start + 5000;
+
+	double currentPos = Disrupter.get_position();
+
+	while (millis() <= end) {
+		uint32_t now = pros::millis();
+		if (now - lastPulseTime >= pulseInterval) {
+			pulseDir = !pulseDir;
+			lastPulseTime = now;
+			Disrupter.move_absolute(pulseDir ? leftPos : rightPos, pulseVel);
+		}
+	} 
+
+	bool inLeftRange = fabs(currentPos - leftPos) <= parkTolerance;
+
+	if (!inLeftRange) {
+		// move to left park position
+		Disrupter.move_absolute(leftPos, pulseVel);
+	} else {
+		// once parked properly on the left, hold it there (no coasting)
+		Disrupter.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+		Disrupter.move_velocity(0);
+	}
     // while (true) { // infinite loop
 	// 	pros::lcd::print(1, "Horizontal Rotation Sensor: %f", horizontalTracker.getDistanceTraveled());
 	// 	pros::lcd::print(2, "Vertical Rotation Sensor: %f", verticalTracker.getDistanceTraveled());
@@ -49,24 +94,24 @@ void autonomous() {
     //     pros::delay(10); // delay to save resources. DO NOT REMOVE
     // }
 
-	pros::lcd::clear();
-	printf("Autonomous Start\n");
-	std::string msg = "X: " + std::to_string(chassis.getPose().x) + " Y: " + std::to_string(chassis.getPose().y) + " Theta: " + std::to_string(chassis.getPose().theta);
-	printf("%s\n", msg.c_str());
-	pros::lcd::set_text(1, "X: " + std::to_string(chassis.getPose().x) + " Y: " + std::to_string(chassis.getPose().y) + " Theta: " + std::to_string(chassis.getPose().theta));
-	printf("Moving to point...\n");
+	// pros::lcd::clear();
+	// printf("Autonomous Start\n");
+	// std::string msg = "X: " + std::to_string(chassis.getPose().x) + " Y: " + std::to_string(chassis.getPose().y) + " Theta: " + std::to_string(chassis.getPose().theta);
+	// printf("%s\n", msg.c_str());
+	// pros::lcd::set_text(1, "X: " + std::to_string(chassis.getPose().x) + " Y: " + std::to_string(chassis.getPose().y) + " Theta: " + std::to_string(chassis.getPose().theta));
+	// printf("Moving to point...\n");
 
-	chassis.moveToPoint(0, 48, 4000, {}, false);
-	chassis.turnToHeading(180, 4000);
-	chassis.moveToPoint(0, 24, 4000, {}, false);
+	// chassis.moveToPoint(0, 48, 4000, {}, false);
+	// chassis.turnToHeading(180, 4000);
+	// chassis.moveToPoint(0, 24, 4000, {}, false);
 	// chassis.moveToPose(0, 48, 0, 4000);
 	// chassis.turnToHeading(90, 100000);
 
 
-	printf("done with move\n");
-	pros::lcd::set_text(2, msg.c_str());
-	printf("%s\n", msg.c_str());
-	printf("Autonomous End\n");
+	// printf("done with move\n");
+	// pros::lcd::set_text(2, msg.c_str());
+	// printf("%s\n", msg.c_str());
+	// printf("Autonomous End\n");
 }
 
 void opcontrol() {
