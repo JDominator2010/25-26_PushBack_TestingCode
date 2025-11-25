@@ -12,7 +12,6 @@
 #include <string>
 #include "lemlib/api.hpp" // IWYU pragma: keep
 
-
 void initialize() {
 	pros::lcd::initialize();
 	pros::lcd::set_text(1, "Hello PROS User!");
@@ -58,6 +57,8 @@ void autonomous() {
 	printf("Moving to point...\n");
 
 	chassis.moveToPoint(0, 48, 4000, {}, false);
+	chassis.turnToHeading(180, 4000);
+	chassis.moveToPoint(0, 24, 4000, {}, false);
 	// chassis.moveToPose(0, 48, 0, 4000);
 	// chassis.turnToHeading(90, 100000);
 
