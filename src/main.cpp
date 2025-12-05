@@ -1,26 +1,30 @@
 #include "main.h"
 #include "devices.h"
+#include "lemlib/pose.hpp"
 #include "liblvgl/llemu.hpp"
 #include "pros/misc.h"
 #include "pros/motors.h"
-#include "pros/rtos.h"
+#include "pros/rtos.h" // IWYU pragma: keep
 #include "pros/rtos.hpp"
+#include <algorithm>
 #include <atomic> // IWYU pragma: keep
 #include <cstdint>
 #include <cstdio>
+#include <cstring>
 #include <ctime>
 #include <string>
 #include "lemlib/api.hpp" // IWYU pragma: keep
+#include "functions.h"
 
 void initialize() {
 	pros::lcd::initialize();
 	pros::lcd::set_text(1, "Hello PROS User!");
 	Disrupter.tare_position();
 	chassis.calibrate(true);
-	imu.tare();
-	while (imu.is_calibrating()){
-		pros::delay(20);
-	}
+	// imu.tare();
+	// while (imu.is_calibrating()){
+	// 	pros::delay(20);
+	// }
     // pros::Task screen_task([=]() {
     //     while (true) {
     //         // print robot location to the brain screen
@@ -46,31 +50,36 @@ void autonomous() {
 	const double parkTolerance = 8.0;
 	const int pulseVel = 150; 
 
+	lemlib::Pose startPos(0, 0, 0);
+	chassis.setPose(startPos);
+	// chassis.moveToPoint(0, 16, 4000);
+	// chassis.turnToHeading(330, 4000);
+	// intakeOn();
+	// chassis.setPose(0,0,0);
+	// chassis.moveToPoint(0, 14, 4000);
 
-	chassis.follow(testingDecoder["Path"], 5, 50000, true, false);
 
-	while (true)
-	{
-		if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)){
-			controller.print(0, 0, "Press");
-		}
-		pros::delay(20);
-	}
+	intake();
+	moveForward(42, {.async = false}); //14, 10
+	// chassis.waitUntil(20);
+	// matchLoad.toggle();
+	// chassis.waitUntilDone();
+	moveBack(14.5);
+	turnToHeading(80);
+	matchLoad.toggle();
+	moveForward(15);
+	midGoal();
 
-	// chassis.setPose(61.7,-19,260);
-	
-	// Low.move(127);
-	// Mid.move(-127);
-	// chassis.follow(blueDecoder["ToBlocks1"], 10, 50000, true, false);
-	// Low.brake();
-	// Mid.brake();
+	// turnToHeading(335); // TEMP OUT FOR TEST
+	// intakeOn();
+	// moveForward(26, {.maxSpeed = 63.5}); //20
+	// pros::delay(1000);
+	// moveBack(5.5);
+	// turnToHeading(50);
+	// matchLoad.toggle();
 
-	// chassis.setPose(23.5, -25, 130);
-	// chassis.follow(blueDecoder["ToGoal1"], 10, 50000, true, false);
-	// Low.move(127);
-	// Mid.move(127);
-	// High.move(127);
-	
+
+
 	// long start = millis();
 	// long end = start + 5000;
 
@@ -124,6 +133,51 @@ void autonomous() {
 	// pros::lcd::set_text(2, msg.c_str());
 	// printf("%s\n", msg.c_str());
 	// printf("Autonomous End\n");
+}
+
+
+void opcontroldebug(){
+	controller.clear();
+	int lookahead = 1;
+	controller.print(0, 0, "Lookahead: %i", lookahead);
+	bool lastUp = false;
+	bool lastDown = false;
+	bool lastA = false;
+	bool lastB = false;
+
+	chassis.setPose(0, -24, 0);
+
+	while (true) {
+		bool upPressed   = controller.get_digital(pros::E_CONTROLLER_DIGITAL_UP);
+		bool downPressed = controller.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN);
+		bool aPressed    = controller.get_digital(pros::E_CONTROLLER_DIGITAL_A);
+		bool bPressed    = controller.get_digital(pros::E_CONTROLLER_DIGITAL_B);
+		
+		if (upPressed && !lastUp) {
+			lookahead += 1;
+			controller.print(0, 0, "Lookahead: %i", lookahead);
+		}
+		if (downPressed && !lastDown) {
+			if (lookahead > 0){
+				lookahead -= 1;
+				
+			}
+			controller.print(0, 0, "Lookahead: %i", lookahead);
+		}
+		if (aPressed && !lastA) {
+			chassis.follow(testingDecoder["Path"], lookahead, 50000, true, false);
+		}
+		if (bPressed && !lastB) {
+			chassis.cancelAllMotions();
+			chassis.setPose(0,0,0);
+		}
+		lastUp = upPressed;
+		lastDown = downPressed;
+		lastA = aPressed;
+		lastB = bPressed;
+		pros::delay(20);
+}
+
 }
 
 void opcontrol() {

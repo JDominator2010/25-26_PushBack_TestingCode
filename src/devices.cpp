@@ -83,9 +83,9 @@ lemlib::Chassis chassis(drivetrain, // drivetrain settings
 // -- LEMLIB TARBALL / PURE PURSUIT -- //
 
 ASSET(bluepath_txt);
-ASSET(testing_txt);
+ASSET(curve_txt);
 lemlib_tarball::Decoder blueDecoder(bluepath_txt);
-lemlib_tarball::Decoder testingDecoder(testing_txt);
+lemlib_tarball::Decoder testingDecoder(curve_txt);
 
 // --- ETC MOTORS -- //
 Motor Disrupter(3, pros::v5::MotorGears::green, pros::v5::MotorEncoderUnits::deg);

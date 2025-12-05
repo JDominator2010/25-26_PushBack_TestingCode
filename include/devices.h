@@ -1,4 +1,5 @@
 #pragma once
+#include "lemlib/asset.hpp"
 #include "lemlib/chassis/chassis.hpp"
 #include "main.h" // IWYU pragma: keep
 #include "pros/adi.hpp"
@@ -48,6 +49,7 @@ extern lemlib::Chassis chassis;
 
 extern lemlib_tarball::Decoder blueDecoder;
 extern lemlib_tarball::Decoder testingDecoder;
+
 
 // --- ETC MOTORS -- //
 extern Motor Disrupter;
