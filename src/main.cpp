@@ -64,7 +64,7 @@ void autonomous() {
 	// chassis.waitUntil(20);
 	// matchLoad.toggle();
 	// chassis.waitUntilDone();
-	moveBack(15);
+	moveBack(16);
 	turnToHeading(82);
 	matchLoad.toggle();
 	moveForward(15);
@@ -225,7 +225,7 @@ void opcontrol() {
 			RL.set_brake_mode(E_MOTOR_BRAKE_BRAKE);
 			RR.set_brake_mode(E_MOTOR_BRAKE_BRAKE);
 		}
-		else if (L2) {
+		else if (L2 && matchLoad.is_extended()) {
 			Low.move(85);
 			Mid.move(127);
 			High.move(-85);
