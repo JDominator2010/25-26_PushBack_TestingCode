@@ -49,6 +49,7 @@ rd::Selector selector({
     {"Red High", redHigh},
     {"Red Mid", redMid},
     {"Red Low", redLow},
+    {"Blue High", blueHigh},
     {"Blue Mid", blueMid},
     {"Blue Low", blueLow},
 });
@@ -56,8 +57,7 @@ rd::Selector selector({
 void autonomous() {
 	lemlib::Pose startPos(0, 0, 0);
 	chassis.setPose(startPos);
-	// selector.run_auton();
-	blueHigh();
+	selector.run_auton();
 
 	// BACKUP CODE / RETURN POINT / 12/11/2025
 	// intake();
