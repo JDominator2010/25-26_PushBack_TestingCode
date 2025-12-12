@@ -55,6 +55,9 @@ rd::Selector selector({
 });
  
 
+rd::Image image("appa.bin", "appa");
+
+
 void autonomous() {
 	lemlib::Pose startPos(0, 0, 0);
 	chassis.setPose(startPos);
@@ -124,6 +127,8 @@ void opcontrol() {
 	const double rightPos = -200.0;
 	const double parkTolerance = 8.0;
 	const int pulseVel = 125; 
+
+	image.focus();
 
 	while (true) {
 		// -- DRIVE CODE -- //
