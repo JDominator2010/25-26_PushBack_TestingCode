@@ -14,6 +14,42 @@
 #include <string>
 #include "lemlib/api.hpp" // IWYU pragma: keep
 
+bool goalActiveAuton = false;
+
+void windshieldWiperTask(void* param) {
+    bool pulseDir = false; 
+    uint32_t lastPulseTime = 0;
+    const uint32_t pulseInterval = 300;
+    const double leftPos = 15.0;
+    const double rightPos = -200.0;
+    const double parkTolerance = 8.0;
+    const int pulseVel = 150; 
+    
+    while (true) {
+        if (goalActiveAuton) {
+            // Pulsing mode
+            uint32_t now = pros::millis();
+            if (now - lastPulseTime >= pulseInterval) {
+                pulseDir = !pulseDir;
+                lastPulseTime = now;
+                Disrupter.move_absolute(pulseDir ? leftPos : rightPos, pulseVel);
+            }
+        } else {
+            // Parking mode (same as opcontrol)
+            double currentPos = Disrupter.get_position();
+            bool inLeftRange = fabs(currentPos - leftPos) <= parkTolerance;
+            
+            if (!inLeftRange) {
+                Disrupter.move_absolute(leftPos, pulseVel);
+            } else {
+                Disrupter.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+                Disrupter.move_velocity(0);
+            }
+        }
+        pros::delay(20);
+    }
+}
+
 
 void moveForward(float inches, moveForwardOptions options){
     chassis.setPose(0,0,0);
@@ -42,6 +78,7 @@ void midGoal(){
     FR.set_brake_mode(E_MOTOR_BRAKE_BRAKE);
     RL.set_brake_mode(E_MOTOR_BRAKE_BRAKE);
     RR.set_brake_mode(E_MOTOR_BRAKE_BRAKE);
+    goalActiveAuton = true;
 }
 
 void ladderOff(){
@@ -51,4 +88,5 @@ void ladderOff(){
     Low.brake();
     Mid.brake();
     High.brake();
+    goalActiveAuton=false;
 }

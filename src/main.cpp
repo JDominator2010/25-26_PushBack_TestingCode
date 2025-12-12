@@ -21,6 +21,7 @@ void initialize() {
 	pros::lcd::set_text(1, "Hello PROS User!");
 	Disrupter.tare_position();
 	chassis.calibrate(true);
+	Task windshield(windshieldWiperTask, (void*)"PROS", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Windshield Wiper Task");
 	// imu.tare();
 	// while (imu.is_calibrating()){
 	// 	pros::delay(20);
@@ -52,31 +53,26 @@ void autonomous() {
 
 	lemlib::Pose startPos(0, 0, 0);
 	chassis.setPose(startPos);
-	// chassis.moveToPoint(0, 16, 4000);
-	// chassis.turnToHeading(330, 4000);
-	// intakeOn();
-	// chassis.setPose(0,0,0);
-	// chassis.moveToPoint(0, 14, 4000);
 
+	// BACKUP CODE / RETURN POINT / 12/11/2025
+	// intake();
+	// moveForward(42, {.async = false}); //14, 10
+	// moveBack(18.25);
+	// turnToHeading(88);
+	// matchLoad.toggle();
+	// moveForward(15.5);
+	// midGoal();
 
 	intake();
 	moveForward(42, {.async = false}); //14, 10
-	// chassis.waitUntil(20);
-	// matchLoad.toggle();
-	// chassis.waitUntilDone();
-	moveBack(16);
-	turnToHeading(82);
+	moveBack(18);
+	turnToHeading(88);
 	matchLoad.toggle();
-	moveForward(15);
+	delay(250);
+	moveForward(15.5);
 	midGoal();
 
-	// turnToHeading(335); // TEMP OUT FOR TEST
-	// intakeOn();
-	// moveForward(26, {.maxSpeed = 63.5}); //20
-	// pros::delay(1000);
-	// moveBack(5.5);
-	// turnToHeading(50);
-	// matchLoad.toggle();
+
 
 
 

@@ -6,6 +6,8 @@
 #include "lemlib/api.hpp" // IWYU pragma: keep
 #include "lemlib-tarball/api.hpp" // IWYU pragma: keep
 
+extern bool goalActiveAuton;
+
 struct moveForwardOptions {
     float timeout = 4000;
     bool forwards = true;
@@ -41,6 +43,8 @@ inline const moveBackOptions defaultMoveBackOptions = { // IWYU pragma: keep
     .earlyExitRange = 0,
     .async = false
 };
+
+extern void windshieldWiperTask(void* param);
 
 extern void moveForward(float inches, moveForwardOptions options = defaultMoveForwardOptions);
 extern void turnToHeading(float theta, int timeoutMS = 4000);
