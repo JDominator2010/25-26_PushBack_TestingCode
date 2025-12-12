@@ -2,7 +2,7 @@
 #include "devices.h"
 #include "functions.h"
 #include "lemlib/pose.hpp"
-#include "liblvgl/llemu.hpp"
+#include "pros/adi.h"
 #include "pros/misc.h"
 #include "pros/motors.h"
 #include "pros/rtos.h" // IWYU pragma: keep
@@ -17,13 +17,14 @@
 bool goalActiveAuton = false;
 
 void windshieldWiperTask(void* param) {
-    bool pulseDir = false; 
-    uint32_t lastPulseTime = 0;
-    const uint32_t pulseInterval = 300;
-    const double leftPos = 15.0;
-    const double rightPos = -200.0;
-    const double parkTolerance = 8.0;
-    const int pulseVel = 150; 
+	bool prevA = false; 
+	bool pulseDir = false;  // false = left, true = right
+	uint32_t lastPulseTime = 0;
+	const uint32_t pulseInterval = 300; // ms between pulses
+	const double leftPos = 10.0;
+	const double rightPos = -200.0;
+	const double parkTolerance = 8.0;
+	const int pulseVel = 125; 
     
     while (true) {
         if (goalActiveAuton) {
@@ -70,10 +71,31 @@ void intake(){
     Mid.move(-127);
 }
 
+void highGoal(){
+    Low.move(127);
+    Mid.move(127);
+    High.move(127);
+    FL.set_brake_mode(E_MOTOR_BRAKE_BRAKE);
+    FR.set_brake_mode(E_MOTOR_BRAKE_BRAKE);
+    RL.set_brake_mode(E_MOTOR_BRAKE_BRAKE);
+    RR.set_brake_mode(E_MOTOR_BRAKE_BRAKE);
+    goalActiveAuton = true;
+}
+
 void midGoal(){
     Low.move(85);
     Mid.move(127);
     High.move(-85);
+    FL.set_brake_mode(E_MOTOR_BRAKE_BRAKE);
+    FR.set_brake_mode(E_MOTOR_BRAKE_BRAKE);
+    RL.set_brake_mode(E_MOTOR_BRAKE_BRAKE);
+    RR.set_brake_mode(E_MOTOR_BRAKE_BRAKE);
+    goalActiveAuton = true;
+}
+
+void lowGoal(){
+    Low.move(-127);
+    Mid.move(127);
     FL.set_brake_mode(E_MOTOR_BRAKE_BRAKE);
     FR.set_brake_mode(E_MOTOR_BRAKE_BRAKE);
     RL.set_brake_mode(E_MOTOR_BRAKE_BRAKE);

@@ -2,10 +2,6 @@
 *.o
 *.obj
 
-# ENV
-*.env
-.env
-
 # Executables
 *.bin
 *.elf

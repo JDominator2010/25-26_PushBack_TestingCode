@@ -1,7 +1,6 @@
 #pragma once
 #include "devices.h"
 #include "functions.h"
-#include "liblvgl/core/lv_obj_class.h"
 #include "main.h" // IWYU pragma: keep
 #include "lemlib/api.hpp" // IWYU pragma: keep
 #include "lemlib-tarball/api.hpp" // IWYU pragma: keep
@@ -52,6 +51,8 @@ extern void turnToHeading(float theta, int timeoutMS = 4000);
 extern void moveBack(float inches, moveBackOptions options = defaultMoveBackOptions);
 
 extern void intake();
+
+extern void lowGoal();
 
 extern void midGoal();
 
