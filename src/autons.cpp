@@ -68,7 +68,7 @@ void redHigh(){
     moveBack(49.5);  // changed from 48 to 50 ( slight distnace shortaage) to 49 (angle compensation)
     turnToHeading(226); // changed from 231 to 227 (check box) to 226
     matchLoad.extend();
-    delay(500);
+    delay(200);
     intake();
     moveForward(12, {.timeout=1000}); // changed from 13 to 12 (check for ez flow) to 10 (timout being hit) to 11 (not far enough) to 12 (??????)
     moveBack(1.5); // changed from .5 to 1 (down x4) to 1.5 (down x4)
@@ -88,12 +88,12 @@ void blueHigh(){
     turnToHeading(276);
     moveForward(15);
     lowGoal();
-    delay(2000);
+    delay(1500);
     ladderOff();
     moveBack(49.5);  // changed from 48 to 50 ( slight distnace shortaage) to 49 (angle compensation)
     turnToHeading(226); // changed from 231 to 227 (check box) to 226
     matchLoad.extend();
-    delay(500);
+    delay(200);
     intake();
     moveForward(12, {.timeout=1000}); // changed from 13 to 12 (check for ez flow) to 10 (timout being hit) to 11 (not far enough) to 12 (??????)
     moveBack(1.5); // changed from .5 to 1 (down x4) to 1.5 (down x4)
