@@ -93,7 +93,7 @@ void midGoal(){
 }
 
 void lowGoal(){
-    Low.move(-127);
+    Low.move(-90);
     Mid.move(127);
     FL.set_brake_mode(E_MOTOR_BRAKE_BRAKE);
     FR.set_brake_mode(E_MOTOR_BRAKE_BRAKE);

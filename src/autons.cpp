@@ -60,14 +60,14 @@ void redMid(){
 void redHigh(){
     intake();
     moveForward(42, {.async = false}); //14, 10
-    moveBack(18);
+    moveBack(19.5);
     turnToHeading(276);
     moveForward(15);
     lowGoal();
     delay(2000);
     ladderOff();
     moveBack(49.5);  // changed from 48 to 50 ( slight distnace shortaage) to 49 (angle compensation)
-    turnToHeading(226); // changed from 231 to 227 (check box) to 226
+    turnToHeading(225); // changed from 231 to 227 (check box) to 226
     matchLoad.extend();
     delay(200);
     intake();
@@ -77,7 +77,7 @@ void redHigh(){
     delay(100); // change from 500 to 100 (might be useless)
     moveBack(20); // changed from 10 to 14
     matchLoad.retract();
-    turnToHeading(180);
+    turnToHeading(175);
     moveForward(8); // changed from 7 to 8 (inc dist)
     highGoal();
 }
@@ -85,14 +85,14 @@ void redHigh(){
 void blueHigh(){
     intake();
     moveForward(42, {.async = false}); //14, 10
-    moveBack(18);
+    moveBack(19.5);
     turnToHeading(276);
     moveForward(15);
     lowGoal();
     delay(1500);
     ladderOff();
     moveBack(49.5);  // changed from 48 to 50 ( slight distnace shortaage) to 49 (angle compensation)
-    turnToHeading(226); // changed from 231 to 227 (check box) to 226
+    turnToHeading(223); // changed from 231 to 227 (check box) to 226
     matchLoad.extend();
     delay(200);
     intake();
@@ -102,7 +102,7 @@ void blueHigh(){
     delay(100); // change from 500 to 100 (might be useless)
     moveBack(20); // changed from 10 to 14
     matchLoad.retract();
-    turnToHeading(180);
+    turnToHeading(179);
     moveForward(8); // changed from 7 to 8 (inc dist)
     highGoal();
 }
