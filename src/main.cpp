@@ -17,14 +17,29 @@
 #include "functions.h"
 #include "robodash/api.h"
 #include "autons.h"
+#include "robodash/views/image.hpp"
 #include "robodash/views/selector.hpp"
+#include "liblvgl/lvgl.h"
+
+
+pros::Task windshield(windshieldWiperTask, (void*)"PROS", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Windshield Wiper Task");
+
+
 
 void initialize() {
 	// pros::lcd::initialize();
 	// pros::lcd::set_text(1, "Jasmine Dragons | 95872B");
 	Disrupter.tare_position();
 	chassis.calibrate(true);
-	Task windshield(windshieldWiperTask, (void*)"PROS", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Windshield Wiper Task");
+	selector.on_select([](std::optional<rd::Selector::routine_t> sel) {
+		if (sel.has_value()) {
+			selectedAutonName = sel->name; // store the name
+			console.printf("Selected: %s", selectedAutonName.c_str());
+		} else {
+			selectedAutonName.clear();     // deselected
+		}
+	});
+
 	// imu.tare();
 	// while (imu.is_calibrating()){
 	// 	pros::delay(20);
@@ -45,24 +60,12 @@ void disabled() {}
 
 void competition_initialize() {}
 
-rd::Selector selector({
-    {"Red High", redHigh},
-    {"Red Mid", redMid},
-    {"Red Low", redLow},
-    {"Blue High", blueHigh},
-    {"Blue Mid", blueMid},
-    {"Blue Low", blueLow},
-});
- 
-
-rd::Image image("appa.bin", "appa");
-
-
 void autonomous() {
 	lemlib::Pose startPos(0, 0, 0);
 	chassis.setPose(startPos);
 	selector.run_auton();
 
+	
 	// BACKUP CODE / RETURN POINT / 12/11/2025
 	// intake();
 	// moveForward(42, {.async = false}); //14, 10
@@ -126,9 +129,17 @@ void opcontrol() {
 	const double leftPos = 10.0;
 	const double rightPos = -200.0;
 	const double parkTolerance = 8.0;
-	const int pulseVel = 125; 
+	const int pulseVel = 125;
+	
+	windshield.remove();
 
-	image.focus();
+	if (selectedAutonName.find("Red") != std::string::npos){
+		appaR.focus();
+	}
+	else if (selectedAutonName.find("Blue") != std::string::npos){
+		appaB.focus();
+	}
+	
 
 	while (true) {
 		// -- DRIVE CODE -- //

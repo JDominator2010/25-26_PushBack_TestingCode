@@ -46,6 +46,7 @@ inline const moveBackOptions defaultMoveBackOptions = { // IWYU pragma: keep
 extern void windshieldWiperTask(void* param);
 
 extern void moveForward(float inches, moveForwardOptions options = defaultMoveForwardOptions);
+
 extern void turnToHeading(float theta, int timeoutMS = 4000);
 
 extern void moveBack(float inches, moveBackOptions options = defaultMoveBackOptions);

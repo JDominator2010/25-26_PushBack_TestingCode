@@ -16,3 +16,5 @@ extern void blueHigh();
 extern void redLow();
 extern void redMid();
 extern void redHigh();
+
+extern pros::Task windshield;

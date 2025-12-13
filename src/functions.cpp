@@ -51,7 +51,6 @@ void windshieldWiperTask(void* param) {
     }
 }
 
-
 void moveForward(float inches, moveForwardOptions options){
     chassis.setPose(0,0,0);
     chassis.moveToPoint(0, inches, options.timeout, {.forwards = options.forwards, .maxSpeed = options.maxSpeed, .minSpeed = options.minSpeed, .earlyExitRange = options.earlyExitRange}, options.async);

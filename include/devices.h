@@ -8,7 +8,11 @@
 #include "pros/motor_group.hpp"
 #include "pros/rotation.hpp"
 #include "lemlib-tarball/api.hpp" // IWYU pragma: keep
-
+#include "robodash/views/console.hpp"
+#include "robodash/views/selector.hpp"
+#include "liblvgl/lvgl.h"
+#include "autons.h"
+#include <string>
 
 using namespace pros;
 extern Controller controller;
@@ -56,3 +60,14 @@ extern Motor Disrupter;
 
 // -- ADI PORTS -- //
 extern adi::Pneumatics matchLoad;
+
+// -- AUTON SELECTOR -- //
+extern rd::Selector selector;
+extern std::string selectedAutonName;
+
+// -- IMAGES -- //
+extern rd::Image appaR;
+extern rd::Image appaB;
+
+// -- RD CONSOLE -- //
+extern rd::Console console;

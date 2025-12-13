@@ -8,7 +8,10 @@
 #include "lemlib/api.hpp" // IWYU pragma: keep
 #include "pros/motor_group.hpp"
 #include "pros/rotation.hpp"
-
+#include "robodash/views/console.hpp"
+#include "robodash/views/selector.hpp"
+#include "liblvgl/lvgl.h"
+#include "autons.h"
 
 using namespace pros;
 Controller controller(E_CONTROLLER_MASTER);
@@ -92,3 +95,22 @@ Motor Disrupter(3, pros::v5::MotorGears::green, pros::v5::MotorEncoderUnits::deg
 
 // -- ADI PORTS -- //
 adi::Pneumatics matchLoad('A', false);
+
+// -- AUTON SELECTOR -- //
+rd::Selector selector({
+    {"Red High", redHigh},
+    {"Red Mid", redMid},
+    {"Red Low", redLow},
+    {"Blue High", blueHigh},
+    {"Blue Mid", blueMid},
+    {"Blue Low", blueLow},
+});
+
+std::string selectedAutonName = "";
+
+// -- IMAGES -- //
+rd::Image appaR("appaP.bin", "appaP");
+rd::Image appaB("appaS.bin", "appaS");
+
+// -- RD CONSOLE -- //
+rd::Console console("Console");
