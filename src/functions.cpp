@@ -65,6 +65,10 @@ void turnToHeading(float theta, int timeoutMS){
     chassis.turnToHeading(theta, timeoutMS, {}, false);
 }
 
+void quickTurn180(){
+    turnToHeading(180);
+}
+
 void intake(){
     Low.move(127);
     Mid.move(-127);
