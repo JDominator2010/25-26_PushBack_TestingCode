@@ -1,9 +1,9 @@
-<details>
-<summary><strong>Authentication System</strong></summary>
+# TODOS
 
-- [ ] Design data models
-- [ ] Implement hashing
-- [ ] Sessions
-- [ ] Tests
+<details>
+<summary><strong>MOVEMENTS System</strong></summary>
+
+- [ ] Adjust turn code to account for error
+     - [ ] After ewch movement store error in global variable, at start of each movement adjust set theta by the error
 
 </details>
