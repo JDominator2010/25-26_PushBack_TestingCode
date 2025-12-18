@@ -5,5 +5,5 @@
 
 - [ ] Adjust turn code to account for error
      - [ ] After each movement store error in global variable, at start of each movement adjust set theta by the error
-
+- [ ] Quick 180° turn
 </details>
