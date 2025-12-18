@@ -124,6 +124,7 @@ void opcontroldebug(){
 void opcontrol() {
 	bool prevA = false; 
 	bool pulseDir = false;  // false = left, true = right
+	bool prevDown = false;
 	uint32_t lastPulseTime = 0;
 	const uint32_t pulseInterval = 300; // ms between pulses
 	const double leftPos = 10.0;
@@ -163,6 +164,8 @@ void opcontrol() {
 		bool R2 = controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2);
 		bool L1 = controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1);
 		bool L2 = controller.get_digital(pros::E_CONTROLLER_DIGITAL_L2);
+
+		bool down = controller.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN);
 
 		if (R1) {
 			Low.move(127);
@@ -207,6 +210,11 @@ void opcontrol() {
 			RR.set_brake_mode(E_MOTOR_BRAKE_COAST);
 		}
 
+		// -- QUICK TURNS -- //
+		if (down && !prevDown){
+			quickTurn180();
+		}
+
 		// -- DISRUPTER CONTROL -- //
 		bool goalActive = (R2 || L1 || L2) && !R1;
 		double currentPos = Disrupter.get_position();
@@ -232,7 +240,7 @@ void opcontrol() {
 				Disrupter.move_velocity(0);
 			}
 		}
-
+		prevDown = down;
 		pros::delay(20);
 	}
 }
