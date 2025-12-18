@@ -15,6 +15,7 @@
 #include "lemlib/api.hpp" // IWYU pragma: keep
 
 bool goalActiveAuton = false;
+float thetaError = 0;
 
 void windshieldWiperTask(void* param) {
 	bool prevA = false; 
@@ -52,17 +53,19 @@ void windshieldWiperTask(void* param) {
 }
 
 void moveForward(float inches, moveForwardOptions options){
-    chassis.setPose(0,0,0);
+    chassis.setPose(0,0,thetaError);
     chassis.moveToPoint(0, inches, options.timeout, {.forwards = options.forwards, .maxSpeed = options.maxSpeed, .minSpeed = options.minSpeed, .earlyExitRange = options.earlyExitRange}, options.async);
 }
 
 void moveBack(float inches, moveBackOptions options){
-    chassis.setPose(0, inches, 0);
+    chassis.setPose(0, inches, thetaError);
     chassis.moveToPoint(0, 0, options.timeout, {.forwards = options.forwards, .maxSpeed = options.maxSpeed, .minSpeed = options.minSpeed, .earlyExitRange = options.earlyExitRange}, options.async);
 }
 
 void turnToHeading(float theta, int timeoutMS){
+    chassis.setPose(0,0,thetaError);
     chassis.turnToHeading(theta, timeoutMS, {}, false);
+    thetaError = theta - chassis.getPose().theta;
 }
 
 void quickTurn180(){

@@ -6,6 +6,7 @@
 #include "lemlib-tarball/api.hpp" // IWYU pragma: keep
 
 extern bool goalActiveAuton;
+extern float thetaError;
 
 struct moveForwardOptions {
     float timeout = 4000;
@@ -50,6 +51,8 @@ extern void moveForward(float inches, moveForwardOptions options = defaultMoveFo
 extern void turnToHeading(float theta, int timeoutMS = 4000);
 
 extern void moveBack(float inches, moveBackOptions options = defaultMoveBackOptions);
+
+extern void quickTurn180();
 
 extern void intake();
 
