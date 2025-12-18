@@ -124,6 +124,7 @@ void opcontroldebug(){
 void opcontrol() {
 	bool prevA = false; 
 	bool pulseDir = false;  // false = left, true = right
+	bool prevDown = false;
 	uint32_t lastPulseTime = 0;
 	const uint32_t pulseInterval = 300; // ms between pulses
 	const double leftPos = 10.0;
@@ -210,7 +211,7 @@ void opcontrol() {
 		}
 
 		// -- QUICK TURNS -- //
-		if (down){
+		if (down && !prevDown){
 			quickTurn180();
 		}
 
@@ -239,7 +240,7 @@ void opcontrol() {
 				Disrupter.move_velocity(0);
 			}
 		}
-
+		prevDown = down;
 		pros::delay(20);
 	}
 }
