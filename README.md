@@ -7,9 +7,10 @@
   - [ ] After each movement store error in global variable, at start of each movement adjust set theta by the error
 - [ ] Display position on brain screen
 - [ ] Switch to true odometry:
-  - [ ] measure true tracking center, center between side whels then across wheels.
-  - [ ] measure true track width, front of bot, measure the distnace between the center of wheels
-  - [ ] measure true diameter of wheels
+  - [x] ~~measure true tracking center, center between side whels then across wheels.~~ (Tracking center is on the IMU)
+  - [x] ~~measure true track width, front of bot, measure the distnace between the center of wheels~~  (14.25 track width)
+  - [x] ~~measure true diameter of big wheels~~ (Circumfrence is: 4.0982398)
+  - [x] ~~measure true diameter of small wheels~~ (Circumfrence is: 4.0982398)
   - [ ] meaure true tracking wheel offsets
 
 </details>

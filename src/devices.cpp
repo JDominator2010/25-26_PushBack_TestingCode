@@ -38,14 +38,14 @@ MotorGroup rightMotorGroup({-8, -9}, pros::MotorGears::green);
 
 lemlib::Drivetrain drivetrain(&leftMotorGroup, // left motor group
                               &rightMotorGroup, // right motor group
-                              14.5, // 14.5 inch track width
-                              lemlib::Omniwheel::OLD_4, // using new 4" omnis
+                              14.25, // 14.5 inch track width
+                              4.0982398, // using new 4" omnis
                               200, // drivetrain rpm is 200
                               2 // horizontal drift is 2 (for now)
 );
 
-lemlib::TrackingWheel horizontalTracker(&horizontalRotation, lemlib::Omniwheel::NEW_2, 2.25);
-lemlib::TrackingWheel verticalTracker(&verticalRotation, lemlib::Omniwheel::NEW_2, 2.25);
+lemlib::TrackingWheel horizontalTracker(&horizontalRotation, 2, 2.25);
+lemlib::TrackingWheel verticalTracker(&verticalRotation, 2, 2.25);
 
 lemlib::OdomSensors sensors(&verticalTracker, // vertical tracking wheel 1
                             nullptr,
