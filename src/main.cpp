@@ -63,8 +63,9 @@ void competition_initialize() {}
 void autonomous() {
 	lemlib::Pose startPos(0, 0, 0);
 	chassis.setPose(startPos);
-	selector.run_auton();
+	// selector.run_auton();
 
+	chassis.moveToPoint(0, 24, 4000, {}, false);
 	
 	// BACKUP CODE / RETURN POINT / 12/11/2025
 	// intake();
