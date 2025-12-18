@@ -164,6 +164,8 @@ void opcontrol() {
 		bool L1 = controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1);
 		bool L2 = controller.get_digital(pros::E_CONTROLLER_DIGITAL_L2);
 
+		bool down = controller.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN);
+
 		if (R1) {
 			Low.move(127);
 			Mid.move(-127);
@@ -205,6 +207,11 @@ void opcontrol() {
 			FR.set_brake_mode(E_MOTOR_BRAKE_COAST);
 			RL.set_brake_mode(E_MOTOR_BRAKE_COAST);
 			RR.set_brake_mode(E_MOTOR_BRAKE_COAST);
+		}
+
+		// -- QUICK TURNS -- //
+		if (down){
+			quickTurn180();
 		}
 
 		// -- DISRUPTER CONTROL -- //
