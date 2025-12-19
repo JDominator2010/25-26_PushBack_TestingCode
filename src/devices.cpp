@@ -44,8 +44,8 @@ lemlib::Drivetrain drivetrain(&leftMotorGroup, // left motor group
                               2 // horizontal drift is 2 (for now)
 );
 
-lemlib::TrackingWheel horizontalTracker(&horizontalRotation, 2, 2.25);
-lemlib::TrackingWheel verticalTracker(&verticalRotation, 2, 2.25);
+lemlib::TrackingWheel horizontalTracker(&horizontalRotation, 2, 2.086);
+lemlib::TrackingWheel verticalTracker(&verticalRotation, 2, 3.346);
 
 lemlib::OdomSensors sensors(&verticalTracker, // vertical tracking wheel 1
                             nullptr,
