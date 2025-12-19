@@ -11,7 +11,8 @@
   - [x] ~~measure true track width, front of bot, measure the distnace between the center of wheels~~  (14.25 track width)
   - [x] ~~measure true diameter of big wheels~~ (Circumfrence is: 4.0982398)
   - [x] ~~measure true diameter of small wheels~~ (Circumfrence is: 4.0982398)
-  - [ ] meaure true tracking wheel offsets
+  - [x] ~~meaure true tracking wheel offsets~~ (Back and forth wheel: 53mm/2.086 in., Side to side: 85mm/ 3.346 in.
+
 
 </details>
 
