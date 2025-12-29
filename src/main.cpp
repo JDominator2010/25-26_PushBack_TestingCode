@@ -1,5 +1,6 @@
 #include "main.h"
 #include "devices.h"
+#include "lemlib/chassis/chassis.hpp"
 #include "lemlib/pose.hpp"
 #include "pros/adi.h"
 #include "pros/misc.h"
@@ -64,9 +65,15 @@ void autonomous() {
 	lemlib::Pose startPos(0, 0, 0);
 	chassis.setPose(startPos);
 	// selector.run_auton();
-
-	chassis.moveToPoint(0, 24, 4000, {}, false);
 	
+	chassis.moveToPoint(0, 20, 4000, {}, false);
+	printf("Reached Point 1 : chassis pose %f, %f, %f\n", chassis.getPose().x, chassis.getPose().y, chassis.getPose().theta);
+	chassis.turnToHeading(180, 10000, {}, false);
+	printf("Reached Heading : chassis pose %f, %f, %f\n", chassis.getPose().x, chassis.getPose().y, chassis.getPose().theta);
+	chassis.moveToPoint(chassis.getPose().x, 40, 10000, {.forwards=false}, false);
+	printf("Reached Point 2 chassis pose %f, %f, %f\n", chassis.getPose().x, chassis.getPose().y, chassis.getPose().theta);
+
+	// chassis.turnToHeading(180, 100000, {}, false);
 	// BACKUP CODE / RETURN POINT / 12/11/2025
 	// intake();
 	// moveForward(42, {.async = false}); //14, 10
@@ -80,45 +87,67 @@ void autonomous() {
 
 void opcontroldebug(){
 	controller.clear();
-	int lookahead = 1;
-	controller.print(0, 0, "Lookahead: %i", lookahead);
+	// int lookahead = 1;
+	controller.print(0, 0, "curSel kP: %i", angular_controller.kP);
 	bool lastUp = false;
 	bool lastDown = false;
+	bool lastRight = false;
 	bool lastA = false;
 	bool lastB = false;
-
+	std::string curSel = "kp";
 	chassis.setPose(0, -24, 0);
 
 	while (true) {
 		bool upPressed   = controller.get_digital(pros::E_CONTROLLER_DIGITAL_UP);
 		bool downPressed = controller.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN);
+		bool rightPressed = controller.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT);
 		bool aPressed    = controller.get_digital(pros::E_CONTROLLER_DIGITAL_A);
 		bool bPressed    = controller.get_digital(pros::E_CONTROLLER_DIGITAL_B);
 		
-		if (upPressed && !lastUp) {
-			lookahead += 1;
-			controller.print(0, 0, "Lookahead: %i", lookahead);
+		if (curSel == "kp"){
+			controller.print(0, 0, "curSel kP: %f", angular_controller.kP);
 		}
-		if (downPressed && !lastDown) {
-			if (lookahead > 0){
-				lookahead -= 1;
-				
+		else if (curSel == "kd"){
+			controller.print(0, 0, "curSel kD: %f", angular_controller.kD);
+		}
+
+		if (upPressed && !lastUp){
+			if (curSel == "kp"){
+				angular_controller.kP += .5;
 			}
-			controller.print(0, 0, "Lookahead: %i", lookahead);
+			else if (curSel == "kd"){
+				angular_controller.kD += .5;
+			}
 		}
-		if (aPressed && !lastA) {
-			chassis.follow(testingDecoder["Path"], lookahead, 50000, true, false);
+		if (downPressed && !lastDown){
+			if (curSel == "kp"){
+				angular_controller.kP -= .5;
+			}
+			else if (curSel == "kd"){
+				angular_controller.kD -= .5;
+			}
 		}
-		if (bPressed && !lastB) {
-			chassis.cancelAllMotions();
+
+		if (rightPressed && !lastRight){
+			if (curSel == "kp"){
+				curSel = "kd";
+			}
+			else if (curSel == "kd"){
+				curSel = "kp";
+			}
+		}
+
+		if (aPressed && !lastA){
 			chassis.setPose(0,0,0);
+			chassis.turnToHeading(270, 10000);
 		}
-		lastUp = upPressed;
+
 		lastDown = downPressed;
+		lastUp = upPressed;
+		lastRight = rightPressed;
 		lastA = aPressed;
-		lastB = bPressed;
 		pros::delay(20);
-}
+	}
 
 }
 

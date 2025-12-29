@@ -3,8 +3,8 @@
 <details>
 <summary><strong>MOVEMENTS System</strong></summary>
 
-- [ ] Adjust turn code to account for error
-  - [ ] After each movement store error in global variable, at start of each movement adjust set theta by the error
+- [ ] ~~Adjust turn code to account for error~~ Unnesearcy with true odometry
+  - [ ] ~~After each movement store error in global variable, at start of each movement adjust set theta by the error~~
 - [ ] Display position on brain screen
 - [ ] Switch to true odometry:
   - [x] ~~measure true tracking center, center between side whels then across wheels.~~ (Tracking center is on the IMU)
