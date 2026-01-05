@@ -21,13 +21,16 @@ void windshieldWiperTask(void* param) {
 	bool prevA = false; 
 	bool pulseDir = false;  // false = left, true = right
 	uint32_t lastPulseTime = 0;
-	const uint32_t pulseInterval = 300; // ms between pulses
+	const uint32_t pulseInterval = 300; // ms between pulse
 	const double leftPos = 10.0;
 	const double rightPos = -200.0;
 	const double parkTolerance = 8.0;
 	const int pulseVel = 125; 
     
     while (true) {
+        console.clear();
+
+        console.printf("X: %f Y: %f", chassis.getPose().x, chassis.getPose().y);
         if (goalActiveAuton) {
             // Pulsing mode
             uint32_t now = pros::millis();
@@ -100,7 +103,7 @@ void midGoal(){
 }
 
 void lowGoal(){
-    Low.move(-60);
+    Low.move(-127);
     Mid.move(127);
     FL.set_brake_mode(E_MOTOR_BRAKE_BRAKE);
     FR.set_brake_mode(E_MOTOR_BRAKE_BRAKE);

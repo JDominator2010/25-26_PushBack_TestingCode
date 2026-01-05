@@ -65,23 +65,32 @@ void autonomous() {
 	lemlib::Pose startPos(0, 0, 0);
 	chassis.setPose(startPos);
 	// selector.run_auton();
-	
-	chassis.moveToPoint(0, 20, 4000, {}, false);
-	printf("Reached Point 1 : chassis pose %f, %f, %f\n", chassis.getPose().x, chassis.getPose().y, chassis.getPose().theta);
-	chassis.turnToHeading(180, 10000, {}, false);
-	printf("Reached Heading : chassis pose %f, %f, %f\n", chassis.getPose().x, chassis.getPose().y, chassis.getPose().theta);
-	chassis.moveToPoint(chassis.getPose().x, 40, 10000, {.forwards=false}, false);
-	printf("Reached Point 2 chassis pose %f, %f, %f\n", chassis.getPose().x, chassis.getPose().y, chassis.getPose().theta);
 
-	// chassis.turnToHeading(180, 100000, {}, false);
-	// BACKUP CODE / RETURN POINT / 12/11/2025
-	// intake();
-	// moveForward(42, {.async = false}); //14, 10
-	// moveBack(18.25);
-	// turnToHeading(88);
-	// matchLoad.toggle();
-	// moveForward(15.5);
-	// midGoal();
+
+	intake();
+	// chassis.moveToPoint(6, 38, 4000, {}, false);
+	// chassis.moveToPoint(chassis.getPose().x, 3, 4000, {.minSpeed=100}, false);
+	// printf("Reached point 1");
+	// chassis.moveToPose(-1.5, 20, 33, 1500, {.lead=0.1}, false);
+	// printf("Reached point 2");
+	// chassis.moveToPoint(4.5, 29.2, 2000, {.maxSpeed=35}, false);	
+	// printf("Reached point 3");
+	// chassis.moveToPose(-0.4, 41.4, 315, 4000, {.lead=0.1}, false);
+	float start = millis();
+	chassis.moveToPose(-10, 24, 0, 40000, {.lead=0.1}, false);
+	printf("Time to shoot: %f\n", millis() - start);
+	chassis.turnToHeading(90, 4000, {}, false);
+	printf("Time: %f\n", millis() - start);
+	chassis.moveToPoint(0, chassis.getPose().y, 4000, {}, false);
+	printf("Time: %f\n", millis() - start);
+	ladderOff();
+
+	// chassis.moveToPoint(0, 17.75, 4000, {}, false);
+	// chassis.turnToHeading(33, 4000, {}, false);
+	// printf("X: %f, Y: %f, Theta: %f\n", chassis.getPose().x, chassis.getPose().y, chassis.getPose().theta);
+	// chassis.moveToPoint(3.67, 26.69, 4000, {.maxSpeed=32}, false);	
+	// chassis.moveToPose(-1.991, 39.809, 315, 2000, {.lead=0.1}, false);
+	// lowGoal();
 }
 
 
