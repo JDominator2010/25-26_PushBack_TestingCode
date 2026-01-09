@@ -4,6 +4,7 @@
 #include "main.h" // IWYU pragma: keep
 #include "lemlib/api.hpp" // IWYU pragma: keep
 #include "lemlib-tarball/api.hpp" // IWYU pragma: keep
+#include <csetjmp>
 
 extern bool goalActiveAuton;
 extern float thetaError;

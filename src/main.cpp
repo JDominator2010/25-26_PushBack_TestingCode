@@ -76,21 +76,50 @@ void autonomous() {
 	// chassis.moveToPoint(4.5, 29.2, 2000, {.maxSpeed=35}, false);	
 	// printf("Reached point 3");
 	// chassis.moveToPose(-0.4, 41.4, 315, 4000, {.lead=0.1}, false);
-	float start = millis();
-	chassis.moveToPose(-10, 24, 0, 40000, {.lead=0.1}, false);
-	printf("Time to shoot: %f\n", millis() - start);
-	chassis.turnToHeading(90, 4000, {}, false);
-	printf("Time: %f\n", millis() - start);
-	chassis.moveToPoint(0, chassis.getPose().y, 4000, {}, false);
-	printf("Time: %f\n", millis() - start);
-	ladderOff();
+	// float start = millis();
+	// chassis.moveToPose(-10, 24, 0, 40000, {.lead=0.1}, false);
+	// printf("Time to shoot: %f\n", millis() - start);
+	// chassis.turnToHeading(90, 4000, {}, false);
+	// printf("Time: %f\n", millis() - start);
+	// chassis.moveToPoint(0, chassis.getPose().y, 4000, {}, false);
+	// printf("Time: %f\n", millis() - start);
+	// ladderOff();
 
-	// chassis.moveToPoint(0, 17.75, 4000, {}, false);
-	// chassis.turnToHeading(33, 4000, {}, false);
-	// printf("X: %f, Y: %f, Theta: %f\n", chassis.getPose().x, chassis.getPose().y, chassis.getPose().theta);
-	// chassis.moveToPoint(3.67, 26.69, 4000, {.maxSpeed=32}, false);	
-	// chassis.moveToPose(-1.991, 39.809, 315, 2000, {.lead=0.1}, false);
-	// lowGoal();
+
+	float start = millis();
+
+	chassis.moveToPoint(0, 16, 4000, {}, false);
+	chassis.turnToHeading(33, 4000, {}, false);
+	printf("X: %f, Y: %f, Theta: %f\n", chassis.getPose().x, chassis.getPose().y, chassis.getPose().theta);
+	moveForward(11.3, {.maxSpeed=32, .async=false});	
+	chassis.turnToHeading(315, 400, {}, false);
+	chassis.moveToPose(-0.547, 36.658, 315, 1000, {.lead=0.1}, false); //-1.784, 39.309
+	lowGoal();
+	delay(2000);
+	// chassis.moveToPoint(18.722, 18.803, 4000, {.forwards=false}, false);
+	moveBack(44.5);
+	// chassis.turnToPoint(26, 0, 3000, {}, false);
+	chassis.turnToHeading(181, 4000, {}, false);
+	// chassis.moveToPose(28.5, 6, 180, 3000, {.lead=0.1}, false);
+	intake();
+	matchLoad.extend();
+	delay(300);
+	// moveForward(11);
+	chassis.moveToPoint(30.25, -4, 4000, {}, false);
+	moveBack(1);
+	moveForward(1);
+	delay(500);
+	moveBack(5);
+	matchLoad.retract();
+	chassis.turnToPoint(28.125, 17.50, 4000, {}, false);
+	chassis.moveToPose(28.125, 17.50, 0, 4000, {.lead=0.1}, false);
+	highGoal();
+	printf("time: %f", millis() - start);
+	controller.print(0, 0, "time: %f", millis() - start);
+
+
+	// chassis.turnToPoint(-1.7, 42, 4000, {}, false);
+	// chassis.moveToPoint(-1.7, 42, 4000, {}, false);
 }
 
 
@@ -166,8 +195,8 @@ void opcontrol() {
 	bool prevDown = false;
 	uint32_t lastPulseTime = 0;
 	const uint32_t pulseInterval = 300; // ms between pulses
-	const double leftPos = 10.0;
-	const double rightPos = -200.0;
+	const double leftPos = 0.0;
+	const double rightPos = -180.0;
 	const double parkTolerance = 8.0;
 	const int pulseVel = 125;
 	

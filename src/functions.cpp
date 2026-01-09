@@ -11,6 +11,7 @@
 #include <cstdint>
 #include <cstdio>
 #include <ctime>
+#include <cmath>
 #include <string>
 #include "lemlib/api.hpp" // IWYU pragma: keep
 
@@ -22,15 +23,15 @@ void windshieldWiperTask(void* param) {
 	bool pulseDir = false;  // false = left, true = right
 	uint32_t lastPulseTime = 0;
 	const uint32_t pulseInterval = 300; // ms between pulse
-	const double leftPos = 10.0;
-	const double rightPos = -200.0;
+	const double leftPos = 0.0;
+	const double rightPos = -180;
 	const double parkTolerance = 8.0;
 	const int pulseVel = 125; 
     
     while (true) {
         console.clear();
 
-        console.printf("X: %f Y: %f", chassis.getPose().x, chassis.getPose().y);
+        console.printf("X: %f Y: %f, Theta: %f", chassis.getPose().x, chassis.getPose().y, chassis.getPose().theta);
         if (goalActiveAuton) {
             // Pulsing mode
             uint32_t now = pros::millis();
@@ -55,14 +56,50 @@ void windshieldWiperTask(void* param) {
     }
 }
 
+// void moveForward(float inches, moveForwardOptions options){
+//     chassis.setPose(0,0,thetaError);
+//     chassis.moveToPoint(0, inches, options.timeout, {.forwards = options.forwards, .maxSpeed = options.maxSpeed, .minSpeed = options.minSpeed, .earlyExitRange = options.earlyExitRange}, options.async);
+// }
+
+// void moveBack(float inches, moveBackOptions options){
+//     chassis.setPose(0, inches, thetaError);
+//     chassis.moveToPoint(0, 0, options.timeout, {.forwards = options.forwards, .maxSpeed = options.maxSpeed, .minSpeed = options.minSpeed, .earlyExitRange = options.earlyExitRange}, options.async);
+// }
+
 void moveForward(float inches, moveForwardOptions options){
-    chassis.setPose(0,0,thetaError);
-    chassis.moveToPoint(0, inches, options.timeout, {.forwards = options.forwards, .maxSpeed = options.maxSpeed, .minSpeed = options.minSpeed, .earlyExitRange = options.earlyExitRange}, options.async);
+    lemlib::Pose cPose = chassis.getPose();
+    double oX = cPose.x;
+    double oY = cPose.y;
+    double theta = cPose.theta;
+    double thetaRad = theta * (M_PI / 180);
+
+    double dX = inches * std::sin(thetaRad);
+    double dY = inches * std::cos(thetaRad);
+
+    double nX = oX + dX;
+    double nY = oY + dY;
+
+    chassis.moveToPoint(nX, nY, options.timeout, {.forwards=options.forwards, .maxSpeed=options.maxSpeed, .minSpeed=options.minSpeed, .earlyExitRange=options.earlyExitRange}, options.async);
+    return;
 }
 
 void moveBack(float inches, moveBackOptions options){
-    chassis.setPose(0, inches, thetaError);
-    chassis.moveToPoint(0, 0, options.timeout, {.forwards = options.forwards, .maxSpeed = options.maxSpeed, .minSpeed = options.minSpeed, .earlyExitRange = options.earlyExitRange}, options.async);
+    lemlib::Pose cPose = chassis.getPose();
+    double oX = cPose.x;
+    double oY = cPose.y;
+    double theta = cPose.theta;
+    double thetaRad = theta * (M_PI / 180);
+
+    inches = inches * -1;
+
+    double dX = inches * std::sin(thetaRad);
+    double dY = inches * std::cos(thetaRad);
+
+    double nX = oX + dX;
+    double nY = oY + dY;
+
+    chassis.moveToPoint(nX, nY, options.timeout, {.forwards=options.forwards, .maxSpeed=options.maxSpeed, .minSpeed=options.minSpeed, .earlyExitRange=options.earlyExitRange}, options.async);
+    return;
 }
 
 void turnToHeading(float theta, int timeoutMS){
@@ -103,7 +140,7 @@ void midGoal(){
 }
 
 void lowGoal(){
-    Low.move(-127);
+    Low.move(-100);
     Mid.move(127);
     FL.set_brake_mode(E_MOTOR_BRAKE_BRAKE);
     FR.set_brake_mode(E_MOTOR_BRAKE_BRAKE);

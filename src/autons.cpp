@@ -58,51 +58,19 @@ void redMid(){
 }
 
 void redHigh(){
-    intake();
-    moveForward(42, {.async = false}); //14, 10
-    moveBack(18);
-    turnToHeading(276);
-    moveForward(15);
-    lowGoal();
-    delay(2000);
-    ladderOff();
-    moveBack(49.5);  // changed from 48 to 50 ( slight distnace shortaage) to 49 (angle compensation)
-    turnToHeading(226); // changed from 231 to 227 (check box) to 226
-    matchLoad.extend();
-    delay(200);
-    intake();
-    moveForward(12, {.timeout=1000}); // changed from 13 to 12 (check for ez flow) to 10 (timout being hit) to 11 (not far enough) to 12 (??????)
-    moveBack(1.5); // changed from .5 to 1 (down x4) to 1.5 (down x4)
-    moveForward(1.5);
-    delay(100); // change from 500 to 100 (might be useless)
-    moveBack(20); // changed from 10 to 14
-    matchLoad.retract();
-    turnToHeading(180);
-    moveForward(8); // changed from 7 to 8 (inc dist)
-    highGoal();
+	chassis.moveToPoint(0, 16, 4000, {}, false);
+	chassis.turnToHeading(33, 4000, {}, false);
+	printf("X: %f, Y: %f, Theta: %f\n", chassis.getPose().x, chassis.getPose().y, chassis.getPose().theta);
+	chassis.moveToPoint(3.67, 26.69, 4000, {.maxSpeed=32}, false);	
+	chassis.turnToHeading(315, 400, {}, false);
+	chassis.moveToPose(-2.13745, 39.66255, 315, 2000, {.lead=0.1}, false);
 }
 
 void blueHigh(){
-    intake();
-    moveForward(42, {.async = false}); //14, 10
-    moveBack(18);
-    turnToHeading(276);
-    moveForward(15);
-    lowGoal();
-    delay(2000);
-    ladderOff();
-    moveBack(49.5);  // changed from 48 to 50 ( slight distnace shortaage) to 49 (angle compensation)
-    turnToHeading(226); // changed from 231 to 227 (check box) to 226
-    matchLoad.extend();
-    delay(200);
-    intake();
-    moveForward(12, {.timeout=1000}); // changed from 13 to 12 (check for ez flow) to 10 (timout being hit) to 11 (not far enough) to 12 (??????)
-    moveBack(1.5); // changed from .5 to 1 (down x4) to 1.5 (down x4)
-    moveForward(1.5);
-    delay(100); // change from 500 to 100 (might be useless)
-    moveBack(20); // changed from 10 to 14
-    matchLoad.retract();
-    turnToHeading(180);
-    moveForward(8); // changed from 7 to 8 (inc dist)
-    highGoal();
+	chassis.moveToPoint(0, 16, 4000, {}, false);
+	chassis.turnToHeading(33, 4000, {}, false);
+	printf("X: %f, Y: %f, Theta: %f\n", chassis.getPose().x, chassis.getPose().y, chassis.getPose().theta);
+	chassis.moveToPoint(3.67, 26.69, 4000, {.maxSpeed=32}, false);	
+	chassis.turnToHeading(315, 400, {}, false);
+	chassis.moveToPose(-2.491, 40.0161, 315, 2000, {.lead=0.1}, false);
 }
