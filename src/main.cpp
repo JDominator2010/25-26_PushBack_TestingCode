@@ -99,22 +99,32 @@ void autonomous() {
 	// chassis.moveToPoint(18.722, 18.803, 4000, {.forwards=false}, false);
 	moveBack(44.5);
 	// chassis.turnToPoint(26, 0, 3000, {}, false);
-	chassis.turnToHeading(181, 4000, {}, false);
+	chassis.turnToHeading(180.02, 4000, {}, false);
 	// chassis.moveToPose(28.5, 6, 180, 3000, {.lead=0.1}, false);
 	intake();
+	// ladderOff();
 	matchLoad.extend();
 	delay(300);
-	// moveForward(11);
-	chassis.moveToPoint(30.25, -4, 4000, {}, false);
-	moveBack(1);
-	moveForward(1);
-	delay(500);
-	moveBack(5);
+	// // moveForward(11);
+	chassis.moveToPoint(29.626, 2.1, 4000, {}, false);
+	// moveBack(1);
+	// moveForward(1);
+	delay(550);
+	moveBack(20.5);
+	ladderOff();
 	matchLoad.retract();
-	chassis.turnToPoint(28.125, 17.50, 4000, {}, false);
-	chassis.moveToPose(28.125, 17.50, 0, 4000, {.lead=0.1}, false);
+	chassis.turnToHeading(0.09, 4000, {}, false);
+	// chassis.moveToPose(26.908, 19.149, 0, 4000, {.lead=0.01}, false);
+	// moveForward(3.808);
 	highGoal();
+	delay(1270);
+	ladderOff();
+	// chassis.turnToPoint(28.125, 17.50, 4000, {}, false);
+	// chassis.moveToPose(28.125, 17.50, 0, 4000, {.lead=0.1}, false);
+	// highGoal();
+
 	printf("time: %f", millis() - start);
+
 	controller.print(0, 0, "time: %f", millis() - start);
 
 
