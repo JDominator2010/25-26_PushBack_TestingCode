@@ -64,10 +64,10 @@ void competition_initialize() {}
 void autonomous() {
 	lemlib::Pose startPos(0, 0, 0);
 	chassis.setPose(startPos);
-	// selector.run_auton();
+	selector.run_auton();
 
 
-	intake();
+	// intake();
 	// chassis.moveToPoint(6, 38, 4000, {}, false);
 	// chassis.moveToPoint(chassis.getPose().x, 3, 4000, {.minSpeed=100}, false);
 	// printf("Reached point 1");
@@ -86,46 +86,46 @@ void autonomous() {
 	// ladderOff();
 
 
-	float start = millis();
+	// float start = millis();
 
-	chassis.moveToPoint(0, 16, 4000, {}, false);
-	chassis.turnToHeading(33, 4000, {}, false);
-	printf("X: %f, Y: %f, Theta: %f\n", chassis.getPose().x, chassis.getPose().y, chassis.getPose().theta);
-	moveForward(11.3, {.maxSpeed=32, .async=false});	
-	chassis.turnToHeading(315, 400, {}, false);
-	chassis.moveToPose(-0.547, 36.658, 315, 1000, {.lead=0.1}, false); //-1.784, 39.309
-	lowGoal();
-	delay(2000);
+	// chassis.moveToPoint(0, 16, 4000, {}, false);
+	// chassis.turnToHeading(33, 4000, {}, false);
+	// printf("X: %f, Y: %f, Theta: %f\n", chassis.getPose().x, chassis.getPose().y, chassis.getPose().theta);
+	// moveForward(11.3, {.maxSpeed=32, .async=false});	
+	// chassis.turnToHeading(315, 400, {}, false);
+	// chassis.moveToPose(-0.547, 36.658, 315, 1000, {.lead=0.1}, false); //-1.784, 39.309
+	// lowGoal();
+	// delay(2000);
 	// chassis.moveToPoint(18.722, 18.803, 4000, {.forwards=false}, false);
-	moveBack(44.5);
+	// moveBack(44.5);
 	// chassis.turnToPoint(26, 0, 3000, {}, false);
-	chassis.turnToHeading(180.02, 4000, {}, false);
+	// chassis.turnToHeading(180.02, 4000, {}, false);
 	// chassis.moveToPose(28.5, 6, 180, 3000, {.lead=0.1}, false);
-	intake();
+	// intake();
 	// ladderOff();
-	matchLoad.extend();
-	delay(300);
+	// matchLoad.extend();
+	// delay(300);
 	// // moveForward(11);
-	chassis.moveToPoint(29.626, 2.1, 4000, {}, false);
+	// chassis.moveToPoint(29.626, 2.1, 4000, {}, false);
 	// moveBack(1);
 	// moveForward(1);
-	delay(550);
-	moveBack(20.5);
-	ladderOff();
-	matchLoad.retract();
-	chassis.turnToHeading(0.09, 4000, {}, false);
+	// delay(550);
+	// moveBack(20.5);
+	// ladderOff();
+	// matchLoad.retract();
+	// chassis.turnToHeading(0.09, 4000, {}, false);
 	// chassis.moveToPose(26.908, 19.149, 0, 4000, {.lead=0.01}, false);
 	// moveForward(3.808);
-	highGoal();
-	delay(1270);
-	ladderOff();
+	// highGoal();
+	// delay(1270);
+	// ladderOff();
 	// chassis.turnToPoint(28.125, 17.50, 4000, {}, false);
 	// chassis.moveToPose(28.125, 17.50, 0, 4000, {.lead=0.1}, false);
 	// highGoal();
 
-	printf("time: %f", millis() - start);
+	// printf("time: %f", millis() - start);
 
-	controller.print(0, 0, "time: %f", millis() - start);
+	// controller.print(0, 0, "time: %f", millis() - start);
 
 
 	// chassis.turnToPoint(-1.7, 42, 4000, {}, false);

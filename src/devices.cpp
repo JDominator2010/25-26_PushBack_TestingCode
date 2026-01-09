@@ -109,11 +109,7 @@ adi::Pneumatics matchLoad('A', false);
 // -- AUTON SELECTOR -- //
 rd::Selector selector({
     {"Red High", redHigh},
-    {"Red Mid", redMid},
-    {"Red Low", redLow},
     {"Blue High", blueHigh},
-    {"Blue Mid", blueMid},
-    {"Blue Low", blueLow},
 });
 
 std::string selectedAutonName = "";
