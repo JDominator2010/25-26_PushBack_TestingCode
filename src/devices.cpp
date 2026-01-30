@@ -85,7 +85,7 @@ lemlib::ControllerSettings angular_controller(10, // proportional gain (kP)
                                               3, // large error range, in inches
                                               500, // large error range timeout, in milliseconds
                                               0 // maximum acceleration (slew)
-);
+);  
 
 lemlib::Chassis chassis(drivetrain, // drivetrain settings
                         lateral_controller, 
@@ -110,6 +110,7 @@ adi::Pneumatics matchLoad('A', false);
 rd::Selector selector({
     {"Red High", redHigh},
     {"Blue High", blueHigh},
+    {"Skills Auton", skillsAuton}
 });
 
 std::string selectedAutonName = "";

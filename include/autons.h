@@ -17,4 +17,6 @@ extern void redLow();
 extern void redMid();
 extern void redHigh();
 
+extern void skillsAuton();
+
 extern pros::Task windshield;

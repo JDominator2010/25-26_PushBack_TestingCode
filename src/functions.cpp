@@ -26,7 +26,7 @@ void windshieldWiperTask(void* param) {
 	const double leftPos = 0.0;
 	const double rightPos = -180;
 	const double parkTolerance = 8.0;
-	const int pulseVel = 125; 
+	const float pulseVel = 127; 
     
     while (true) {
         console.clear();
@@ -79,7 +79,7 @@ void moveForward(float inches, moveForwardOptions options){
     double nX = oX + dX;
     double nY = oY + dY;
 
-    chassis.moveToPoint(nX, nY, options.timeout, {.forwards=options.forwards, .maxSpeed=options.maxSpeed, .minSpeed=options.minSpeed, .earlyExitRange=options.earlyExitRange}, options.async);
+    chassis.moveToPoint(nX, nY, options.timeout, {.forwards=options.forwards, .maxSpeed=options.maxSpeed, .minSpeed=options.minSpeed, .earlyExitRange=options.earlyExitRange}, false);
     return;
 }
 
@@ -98,7 +98,7 @@ void moveBack(float inches, moveBackOptions options){
     double nX = oX + dX;
     double nY = oY + dY;
 
-    chassis.moveToPoint(nX, nY, options.timeout, {.forwards=options.forwards, .maxSpeed=options.maxSpeed, .minSpeed=options.minSpeed, .earlyExitRange=options.earlyExitRange}, options.async);
+    chassis.moveToPoint(nX, nY, options.timeout, {.forwards=options.forwards, .maxSpeed=options.maxSpeed, .minSpeed=options.minSpeed, .earlyExitRange=options.earlyExitRange}, false);
     return;
 }
 
@@ -115,6 +115,7 @@ void quickTurn180(){
 void intake(){
     Low.move(127);
     Mid.move(-127);
+    goalActiveAuton = true;
 }
 
 void highGoal(){
@@ -140,7 +141,7 @@ void midGoal(){
 }
 
 void lowGoal(){
-    Low.move(-100);
+    Low.move(-127);
     Mid.move(127);
     FL.set_brake_mode(E_MOTOR_BRAKE_BRAKE);
     FR.set_brake_mode(E_MOTOR_BRAKE_BRAKE);
