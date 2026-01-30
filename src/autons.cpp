@@ -164,7 +164,7 @@ void skillsAuton(){
 	matchLoad.extend();
 	delay(500);
 	intake();
-	moveForward(17, {.timeout=3500});
+	moveForward(19, {.timeout=3500});
 	// moveBack(1);
 	// moveForward(1);
 	// moveBack(1);
@@ -181,9 +181,24 @@ void skillsAuton(){
 		delay(200);
 	}
 	chassis.turnToHeading(180, 4000, {}, false);
-	moveForward(21); // 15 + 6
+	moveForward(19); // 15 + 3 + 1
 	chassis.turnToHeading(270, 4000, {}, false);
 	matchLoad.extend();
 	delay(500);
 	moveForward(18, {.timeout=3500});
+	moveBack(18);
+	matchLoad.retract();
+	chassis.turnToHeading(177, 4000, {}, false);
+	highGoal();
+	// moveBack(85);
+	chassis.moveToPoint(chassis.getPose().x, 55, 4000, {.forwards=false}, true);
+	while (chassis.isInMotion()){
+		chassis.turnToHeading(177, 4000, {}, false);
+		delay(200);
+	}
+	chassis.turnToHeading(270, 4000, {}, false);
+	matchLoad.extend();
+	delay(500);
+	intake();
+	moveForward(19, {.timeout=3500});
 }
