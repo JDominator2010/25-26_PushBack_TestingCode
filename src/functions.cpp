@@ -24,7 +24,7 @@ void windshieldWiperTask(void* param) {
 	uint32_t lastPulseTime = 0;
 	const uint32_t pulseInterval = 300; // ms between pulse
 	const double leftPos = 0.0;
-	const double rightPos = -180;
+	const double rightPos = -150.0;
 	const double parkTolerance = 8.0;
 	const float pulseVel = 127; 
     
@@ -141,8 +141,8 @@ void midGoal(){
 }
 
 void lowGoal(){
-    Low.move(-127);
-    Mid.move(127);
+    Low.move(-90);
+    Mid.move(90);
     FL.set_brake_mode(E_MOTOR_BRAKE_BRAKE);
     FR.set_brake_mode(E_MOTOR_BRAKE_BRAKE);
     RL.set_brake_mode(E_MOTOR_BRAKE_BRAKE);

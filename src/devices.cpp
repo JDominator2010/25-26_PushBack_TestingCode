@@ -27,14 +27,14 @@ Motor Mid(5, v5::MotorGears::blue, pros::v5::MotorEncoderUnits::deg);
 Motor High(-6, v5::MotorGears::blue, pros::v5::MotorEncoderUnits::deg);
 
 // -- DRIVE MOTORS -- //
-Motor FL(-7, v5::MotorGears::green, pros::v5::MotorEncoderUnits::deg);
-Motor FR(8, v5::MotorGears::green, pros::v5::MotorEncoderUnits::deg);
-Motor RR(-9, v5::MotorGears::green, pros::v5::MotorEncoderUnits::deg);
-Motor RL(-10, v5::MotorGears::green, pros::v5::MotorEncoderUnits::deg);
+Motor FL(-7, v5::MotorGears::red, pros::v5::MotorEncoderUnits::deg);
+Motor FR(8, v5::MotorGears::red, pros::v5::MotorEncoderUnits::deg);
+Motor RR(-9, v5::MotorGears::red, pros::v5::MotorEncoderUnits::deg);
+Motor RL(-10, v5::MotorGears::red, pros::v5::MotorEncoderUnits::deg);
 
 // -- LEMLIB DRIVETRAIN SETUP -- //
-MotorGroup leftMotorGroup({7, 10}, pros::MotorGears::green);
-MotorGroup rightMotorGroup({-8, -9}, pros::MotorGears::green);
+MotorGroup leftMotorGroup({7, 10}, pros::MotorGears::red);
+MotorGroup rightMotorGroup({-8, -9}, pros::MotorGears::red);
 
 lemlib::Drivetrain drivetrain(&leftMotorGroup, // left motor group
                               &rightMotorGroup, // right motor group
@@ -44,8 +44,8 @@ lemlib::Drivetrain drivetrain(&leftMotorGroup, // left motor group
                               2 // horizontal drift is 2 (for now)
 );
 
-lemlib::TrackingWheel horizontalTracker(&horizontalRotation, 2, 2.086);
-lemlib::TrackingWheel verticalTracker(&verticalRotation, 2, 3.346);
+lemlib::TrackingWheel horizontalTracker(&horizontalRotation, 2, 2.75);
+lemlib::TrackingWheel verticalTracker(&verticalRotation, 2, 3.125);
 
 lemlib::OdomSensors sensors(&verticalTracker, // vertical tracking wheel 1
                             nullptr,

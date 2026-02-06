@@ -214,7 +214,7 @@ void opcontrol() {
 	uint32_t lastPulseTime = 0;
 	const uint32_t pulseInterval = 300; // ms between pulses
 	const double leftPos = 0.0;
-	const double rightPos = -180.0;
+	const double rightPos = -150.0;
 	const double parkTolerance = 8.0;
 	const float pulseVel = 127; 
 	
@@ -232,7 +232,7 @@ void opcontrol() {
 		// -- DRIVE CODE -- //
 		std::int32_t forward = controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
 		std::int32_t strafe = controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X);
-	std::int32_t turn = controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
+		std::int32_t turn = controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
 		FL.move(-strafe - forward +-turn);
 		FR.move(+strafe - forward + turn);
 		RL.move(strafe - forward - turn);
