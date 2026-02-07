@@ -296,11 +296,6 @@ void opcontrol() {
 			RR.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
 		}
 
-		// -- QUICK TURNS -- //
-		if (down && !prevDown){
-			quickTurn180();
-		}
-
 		// -- DISRUPTER CONTROL -- //
 		bool goalActive = (R2 || L1 || L2 || R1);
 		double currentPos = Disrupter.get_position();

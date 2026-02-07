@@ -102,16 +102,6 @@ void moveBack(float inches, moveBackOptions options){
     return;
 }
 
-void turnToHeading(float theta, int timeoutMS){
-    chassis.setPose(0,0,thetaError);
-    chassis.turnToHeading(theta, timeoutMS, {}, false);
-    thetaError = theta - chassis.getPose().theta;
-}
-
-void quickTurn180(){
-    turnToHeading(180);
-}
-
 void intake(){
     Low.move(127);
     Mid.move(-127);
@@ -141,8 +131,8 @@ void midGoal(){
 }
 
 void lowGoal(){
-    Low.move(-90);
-    Mid.move(90);
+    Low.move(-101);
+    Mid.move(101);
     FL.set_brake_mode(E_MOTOR_BRAKE_BRAKE);
     FR.set_brake_mode(E_MOTOR_BRAKE_BRAKE);
     RL.set_brake_mode(E_MOTOR_BRAKE_BRAKE);
@@ -158,4 +148,29 @@ void ladderOff(){
     Mid.brake();
     High.brake();
     goalActiveAuton=false;
+}
+
+void pulseLowOn(){
+    Low.move(-127);
+    goalActiveAuton = true;
+}
+
+void midConstant(){
+    Mid.move(64);
+    goalActiveAuton = true; 
+}
+
+void pulseLowOff(){
+    Low.move(0);
+    Low.brake();
+}
+
+void ladderOffPulse(){
+    Low.move(0);
+    Mid.move(0);
+    High.move(0);
+    Low.brake();
+    Mid.brake();
+    High.brake();
+    goalActiveAuton=true;
 }

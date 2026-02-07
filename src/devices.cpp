@@ -49,7 +49,7 @@ lemlib::TrackingWheel verticalTracker(&verticalRotation, 2, 3.125);
 
 lemlib::OdomSensors sensors(&verticalTracker, // vertical tracking wheel 1
                             nullptr,
-                            &horizontalTracker, // horizontal tracking wheel 1
+                            nullptr, // horizontal tracking wheel 1
                             nullptr, // horizontal tracking wheel 2, set to nullptr as we don't have a second one
                             &imu 
 );

@@ -63,4 +63,12 @@ extern void midGoal();
 
 extern void highGoal();
 
+void pulseLowOn();
+
+void midConstant();
+
+void pulseLowOff();
+
 extern void ladderOff();
+
+extern void ladderOffPulse();
